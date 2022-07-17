@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto';
+}
+html, body {
+    //background-color: rgb(237, 200, 200);
+    height: 100vh;
+}
+a {
+    text-decoration: none
+}
+button {
+    cursor: pointer;
+}
+ul {
+    list-style: none;
+}
+a:visited {
+    text-decoration: none;
+}
+#app {
+    height: 100vh;
+}
