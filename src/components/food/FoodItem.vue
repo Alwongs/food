@@ -38,7 +38,7 @@
                 {{ food.energy }} кКал
             </div>                                       
             <div class="item-buttons"> 
-                <button class="edit" @click="editHandler">Edit</button>
+                <button class="edit" @click="openEdit(food)">Edit</button>
                 <button class="delete" @click="deleteHandler">Delete</button>
             </div>                                       
         </div>
@@ -49,9 +49,18 @@
 export default {
     name: 'FoodItem',
     props: ['food'],
+    computed: {
+        isCreateFoodOpen() {
+            return this.$store.getters.isCreateFoodOpen;
+        }        
+    },
     methods: {
         async deleteHandler() {
             await this.$store.dispatch('removeFood', this.food.id)
+        },
+        openEdit(food) {
+            this.$store.commit('UPDATE_FOOD', food);                
+            this.$store.commit('OPEN_CREATE_FOOD', true);
         }
     }
 }

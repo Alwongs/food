@@ -1,8 +1,13 @@
 <template>
     <div class="form-section">
-        <h2>Создать продукт</h2>
+        <div class="close-modal" @click="closeModal">(x)</div>
+
+        <h2 v-if="!foodToUpdate">Создать продукт</h2>
+        <h2 v-else>Обновить "{{ data.title }}"</h2>
+
         <form @submit.prevent="createFoodHandler">
             <div class="input-block title">
+                <label for="">name</label>
                 <input 
                     v-model="data.title" 
                     type="text" 
@@ -10,6 +15,7 @@
                 >
             </div>
             <div class="input-block energy">
+                <label for="">enrgy</label>                
                 <input 
                     v-model.number="data.energy" 
                     type="text" 
@@ -17,6 +23,7 @@
                 >
             </div>
             <div class="input-block protein">
+                <label for="">protein</label>                
                 <input 
                     v-model.number="data.protein" 
                     type="text" 
@@ -24,6 +31,7 @@
                 >
             </div>
             <div class="input-block fat">
+                <label for="">fat</label>                
                 <input 
                     v-model.number="data.fat" 
                     type="text" 
@@ -31,13 +39,15 @@
                 >
             </div>
             <div class="input-block carb">
+                <label for="">carb</label>                
                 <input 
                     v-model.number="data.carb" 
                     type="text" 
                     placeholder="Углеводы"
                 >
             </div>
-            <button class="submit">Сохранить</button>
+            <button v-if="foodToUpdate" class="submit">Обновить</button>
+            <button v-if="!foodToUpdate" class="submit">Сохранить</button>
         </form>
     </div>  
 </template>
@@ -51,10 +61,30 @@ export default {
             data: {}
         }
     },
+    computed: {
+        foodToUpdate() {
+            return this.$store.getters.foodToUpdate;
+        }
+    },
     methods: {
         async createFoodHandler() {
-            await this.$store.dispatch('createFood', this.data);
+            if(this.foodToUpdate) {
+                await this.$store.dispatch('updateFood', this.data);
+                this.$store.dispatch('getFoodList');
+                this.$store.commit('OPEN_CREATE_FOOD', false);                 
+            } else {
+                await this.$store.dispatch('createFood', this.data);
+            }
             this.data = {}
+        },
+        closeModal() {
+            this.$store.commit('UPDATE_FOOD', null); 
+            this.$store.commit('OPEN_CREATE_FOOD', false);             
+        }
+    },
+    mounted() {
+        if(this.foodToUpdate) {
+            this.data = this.foodToUpdate;
         }
     }    
 }
@@ -81,6 +111,12 @@ export default {
         margin-bottom: 8px;        
         width: 100%;
     }
+}
+.close-modal {
+    font-size: 18px;
+    color: white;
+    text-align: right;
+    cursor: pointer
 }
 h2 {
     color: $white;
@@ -110,6 +146,10 @@ h2 {
     @media (max-width: 768px) {
         margin-bottom: 16px;
     } 
+    label {
+        color: white;
+        font-size: 12px;
+    }
 }
 input {
     width: 100%;

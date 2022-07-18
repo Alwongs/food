@@ -16,11 +16,8 @@ export default {
         TOGGLE_ASIDE(state) {
             state.isAsideOpen = !state.isAsideOpen;
         },
-        TOGGLE_CREATE_FOOD(state) {
-            state.isCreateFoodOpen = !state.isCreateFoodOpen;
-        }, 
-        CLOSE_CREATE_FOOD(state) {
-            state.isCreateFoodOpen = false;
+        OPEN_CREATE_FOOD(state, payload) {
+            state.isCreateFoodOpen = payload;
         },                 
     }
 }

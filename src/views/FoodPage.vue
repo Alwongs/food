@@ -4,7 +4,7 @@
             <h1>Продукты</h1>
             <button 
                 class="submit" 
-                @click="openModal"
+                @click="openCreateFood"
             >
                 Создать
             </button>            
@@ -24,11 +24,6 @@ import AppLoader from '../components/app/AppLoader.vue'
 
 export default {
     name: 'FoodPage', 
-    data() {
-        return {
-            isCreateFoodOpen: false
-        }
-    },
     components: { 
         AppLoader,
         FoodList, 
@@ -40,11 +35,14 @@ export default {
         },
         loading() {
             return this.$store.getters.getProcessing;
+        },
+        isCreateFoodOpen() {
+            return this.$store.getters.isCreateFoodOpen;
         }
     },
     methods: {
-        openModal() {
-            this.isCreateFoodOpen = !this.isCreateFoodOpen
+        openCreateFood() {
+            this.$store.commit('OPEN_CREATE_FOOD', true);
         }
     },
     mounted() {
