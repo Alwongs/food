@@ -8,7 +8,14 @@
                 v-if="isUserAuthenticated" 
                 @click="goTo('food-page')"
             >
-                Food
+                FoodList
+            </button>
+
+            <button 
+                v-if="isUserAuthenticated" 
+                @click="goTo('create-meal')"
+            >
+                CreateMeal
             </button>
 
             <button 

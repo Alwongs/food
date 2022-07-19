@@ -13,6 +13,11 @@ const routes = [
     component: () => import('@/views/FoodPage.vue')
   },
   {
+    path: '/create-meal',
+    name: 'create-meal',
+    component: () => import('@/views/CreateMeal.vue')
+  },
+  {
     path: '/profile-page',
     name: 'profile-page',
     component: () => import('@/views/ProfilePage.vue')

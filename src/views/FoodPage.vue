@@ -10,7 +10,7 @@
             </button>            
         </header> 
         <main class="content">
-            <app-loader v-if="loading" />
+            <app-loader v-if="loading"/>
             <food-list :foodList="foodList"/>
             <create-food v-if="isCreateFoodOpen"/>
         </main>    
@@ -53,7 +53,6 @@ export default {
 
 <style lang="scss" scoped>
 .food-page {
-    background-color: rgb(226, 185, 185);
     min-height: 100%;
     width: 100%;
     padding: 64px;
@@ -101,15 +100,17 @@ h1 {
     font-weight: 500;
 }
 button {
-    background-color: rgb(78, 158, 123);
-    border-radius: 3px;
+    background-color: rgb(98, 162, 98);
+    box-shadow: 1px 1px 2px 1px rgba(98, 162, 98, 0.504);
+    margin: 0 4px;
+    height: 48px;
+    width: 80px;
+    border-radius: 5px;
     border: none;
-    box-shadow: 0px 1px 2px 1px rgba(3, 3, 3, 0.4);
-    height: 30px;
-    width: 94px;
-    font-size: 16px;
-    color: $white;
-    cursor: pointer;
+    color: white;
+    &:hover {
+        background-color: rgb(134, 215, 150);           
+    }              
 }
 
 </style>

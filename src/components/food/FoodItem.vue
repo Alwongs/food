@@ -5,7 +5,7 @@
                 <img :src="require('@/assets/img/png/food.png')" alt="">
             </div>
             <div class="item-title">
-                {{ food.title }}:
+                {{ food.title }}
             </div> 
             <ul class="item-nutrients"> 
                 <li>
@@ -70,7 +70,8 @@ export default {
 
 .food-item {
     background-color: rgb(203, 243, 217);
-    border-radius: 8px;
+    box-shadow: 1px 1px 4px 2px rgba(110, 129, 112, 0.504);
+    border-radius: 10px;
     margin-bottom: 32px;
     padding: 4px 16px 4px 4px;
     display: flex;
@@ -92,6 +93,10 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: center; 
+    font-size: 24px;
+    font-weight: 500;
+    color: rgb(60, 77, 145);
+transform: matrix(1.2, 0, -0.2, 1, 0, 0);
 }
 .item-nutrients {
     display: flex;
@@ -114,24 +119,27 @@ img {
 }
 .item-buttons {
     display: flex;
-    align-items: center;
-    button {
-        margin: 0 4px;
-        height: 48px;
-        width: 80px;
-        border-radius: 5px;
-        border: none;
-        color: white;
-        &.edit {
-            background-color: rgb(50, 111, 161);
-        }
-        &.delete {
-            background-color: rgb(183, 89, 89);
-        }
+    align-items: center;   
+}
+button {
+    box-shadow: 1px 1px 2px 1px rgba(110, 129, 112, 0.504);
+    margin: 0 4px;
+    height: 48px;
+    width: 80px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    &.edit {
+        background-color: rgb(50, 111, 161);
+        &:hover {
+            background-color: rgb(116, 185, 241);           
+        }              
+    }
+    &.delete {
+        background-color: rgb(183, 89, 89);
         &:hover {
             background-color: rgb(255, 179, 179);            
-        }
-    }    
-
-}
+        }            
+    }
+} 
 </style>
