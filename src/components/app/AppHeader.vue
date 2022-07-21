@@ -1,69 +1,20 @@
 <template>
-    <header class="app-header">
-        <div class="logo-block" @click="goTo('home')">
-            HOME
-        </div>
-        <div class="btn-block">
-            <button 
-                v-if="isUserAuthenticated" 
-                @click="goTo('food-page')"
-            >
-                FoodList
-            </button>
-
-            <button 
-                v-if="isUserAuthenticated" 
-                @click="goTo('create-meal')"
-            >
-                CreateMeal
-            </button>
-
-            <button 
-                v-if="isUserAuthenticated" 
-                @click="goTo('profile-page')"
-            >
-                Profile
-            </button>
-
-            <button 
-                v-if="!isUserAuthenticated" 
-                @click="goTo('login')"
-            >
-                Login
-            </button>
-
-            <button 
-                v-if="!isUserAuthenticated" 
-                @click="goTo('register')"
-            >
-                Register
-            </button>
-
-            <button 
-                v-if="isUserAuthenticated" 
-                @click="logoutHandler"
-            >
-                Logout
-            </button>
-        </div>
-    </header>  
+    <header class="header">
+        <h1>{{ titleText }}</h1>
+        <button @click="clickEvent">
+            {{ btnText }}
+        </button>            
+    </header>
 </template>
 
 <script>
+
 export default {
     name: 'AppHeader',
-    computed: {
-        isUserAuthenticated() {
-            return this.$store.getters.isUserAuthenticated;
-        }
-    },   
+    props: ['btnText', 'titleText'],
     methods: {
-        goTo(name) {
-            this.$router.push({name})
-        },
-        logoutHandler() {
-            this.$store.dispatch('logout');
-            this.$router.push('/');
+        clickEvent() {
+            this.$emit('clickEvent')
         }
     }
 }
@@ -71,26 +22,38 @@ export default {
 
 <style lang="scss" scoped>
 
-.app-header {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background-color: rgb(101, 149, 150);
-    height: 64px;
+.header {
     display: flex;
     justify-content: space-between;
-    line-height: 64px;
-    padding: 0 64px;
-}
-.logo-block {
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-}
-button {
-    height: 48px;
-    width: 90px;
-    margin: 0 4px;
+    border-bottom: 2px solid rgba(223, 223, 223, 0.5);
+    text-align: start;
+    padding: 10px;
+    margin-bottom: 36px;
+    h1 {
+        color: $black;
+        font-weight: 500;
+    }
+    button {
+        background-color: rgb(98, 162, 98);
+        box-shadow: 1px 1px 2px 1px rgba(98, 162, 98, 0.504);
+        margin: 0 4px;
+        height: 48px;
+        width: 80px;
+        border-radius: 5px;
+        border: none;
+        color: white;
+        &:hover {
+            background-color: rgb(134, 215, 150);           
+        }              
+    }
+    @media (min-width: 1024px) and (max-width: 1440px) {
+        margin-bottom: 16px;
+    }     
+    @media (min-width: 768px) and (max-width: 1024px) {
+        margin-bottom: 16px;
+    }      
+    @media (max-width: 768px) {
+        margin-bottom: 16px;
+    } 
 }
 </style>

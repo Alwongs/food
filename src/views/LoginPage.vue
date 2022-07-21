@@ -23,7 +23,8 @@ export default {
     },
     methods: {
         loginHandler() {
-            this.$store.dispatch('login', this.data)
+            this.$store.dispatch('login', this.data);
+            this.$router.push({name: 'home'})
         }
     }
 }

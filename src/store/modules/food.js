@@ -11,7 +11,7 @@ export default {
         }
     },
     state: {
-        foodList: [],
+        foodList: {},
         foodToUpdate: null
     },
     mutations: {
@@ -56,8 +56,8 @@ export default {
             get(child(dbRef, `users/${uid}/food`)).then((data) => {
                 if (data.exists()) {
                     const foods = data.val()  
-                    const foodsArray = Object.keys(foods).map(key => ({...foods[key], id: key}))                     
-                    commit('UPDATE_FOOD_LIST', foodsArray);
+                    //const foodsArray = Object.keys(foods).map(key => ({...foods[key], id: key}))                     
+                    commit('UPDATE_FOOD_LIST', foods);
                     commit('SET_PROCESSING', false);
                 } else {
                     commit('UPDATE_FOOD_LIST', [])

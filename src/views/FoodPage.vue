@@ -1,14 +1,10 @@
 <template>
     <div class="food-page">
-        <header class="header">
-            <h1>Продукты</h1>
-            <button 
-                class="submit" 
-                @click="openCreateFood"
-            >
-                Создать
-            </button>            
-        </header> 
+        <app-header 
+            :titleText="'FoodList'" 
+            :btnText="'Create'"
+            @clickEvent="openCreateFood" 
+        />
         <main class="content">
             <app-loader v-if="loading"/>
             <food-list :foodList="foodList"/>
@@ -18,6 +14,7 @@
 </template>
 
 <script>
+import AppHeader from '../components/app/AppHeader.vue';
 import FoodList from '../components/food/FoodList.vue'
 import CreateFood from '../components/food/CreateFood.vue'
 import AppLoader from '../components/app/AppLoader.vue'
@@ -25,6 +22,7 @@ import AppLoader from '../components/app/AppLoader.vue'
 export default {
     name: 'FoodPage', 
     components: { 
+        AppHeader,
         AppLoader,
         FoodList, 
         CreateFood
@@ -66,23 +64,6 @@ export default {
         padding: 0px 16px;
     } 
 }
-.header {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 2px solid rgba(223, 223, 223, 0.5);
-    text-align: start;
-    padding: 10px;
-    margin-bottom: 36px;
-    @media (min-width: 1024px) and (max-width: 1440px) {
-        margin-bottom: 16px;
-    }     
-    @media (min-width: 768px) and (max-width: 1024px) {
-        margin-bottom: 16px;
-    }      
-    @media (max-width: 768px) {
-        margin-bottom: 16px;
-    } 
-}
 .content {
     position: relative;
     display: flex;
@@ -94,10 +75,6 @@ export default {
     @media (max-width: 768px) {
         flex-direction: column;
     } 
-}
-h1 {
-    color: $black;
-    font-weight: 500;
 }
 button {
     background-color: rgb(98, 162, 98);

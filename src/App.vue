@@ -1,16 +1,16 @@
 <template>
-    <app-header />
+    <app-panel />
     <main class="app-main">
         <router-view/>
     </main>
 </template>
 
 <script>
-import AppHeader from '@/components/app/AppHeader.vue'
+import AppPanel from '@/components/app/AppPanel.vue'
 
 export default {
     name: 'App',
-    components: { AppHeader }
+    components: { AppPanel }
 }
 </script>
 

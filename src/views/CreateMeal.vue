@@ -7,19 +7,41 @@
             </button>            
         </header> 
         <main class="content">
-            <div class="input-block">
+            <form class="form" @submit.prevent="saveMeal">
                 <div class="input-item">
-                    <input type="text" placeholder="choose food.." @click="openList">
-                    <div v-if="isListOpen" class="food-list"></div>
+                    <input 
+                        v-model="selectedFood.title" 
+                        type="text" 
+                        placeholder="choose food.." 
+                        @click="openList"
+                    >
+                    <ul 
+                        v-if="isListOpen" 
+                        class="food-list"
+                    >
+                        <li v-if="loading">
+                            Loading ...
+                        </li>
+                        <li 
+                            v-for="food in foodList"
+                            :key="food.id"
+                            @click="selectFood(food)"
+                        >
+                            {{ food.title }}
+                        </li>
+                    </ul>
                 </div>
-
                 <div class="input-item">
-                    <input type="text" placeholder="choose weight..">
+                    <input 
+                        v-model="weight" 
+                        type="text" 
+                        placeholder="choose weight.."
+                    >
                 </div>
                 <div class="input-item">
                     <input type="submit" value="Add">
                 </div>
-            </div>
+            </form>
         </main>    
     </div>
 </template>
@@ -30,12 +52,33 @@ export default {
     name: 'CreateMeal', 
     data() {
         return {
-            isListOpen: false
+            isListOpen: false,
+            selectedFood: '',
+            weight: ''
+        }
+    },
+    computed: {
+        loading() {
+            return this.$store.getters.getProcessing
+        },
+        foodList() {
+            return this.$store.getters.foodList
         }
     },
     methods: {
         openList () {
-            this.isListOpen = !this.isListOpen
+            this.isListOpen = !this.isListOpen;
+            this.$store.dispatch('getFoodList')
+        },
+        selectFood(food) {
+            this.selectedFood = food;
+            this.isListOpen = false;
+        },
+        saveMeal() {
+            this.$store.dispatch('createMeal', {
+                selectedFood: this.selectedFood, 
+                weight: this.weight
+            })
         }
     }
 }
@@ -99,8 +142,7 @@ export default {
         flex-direction: column;
     } 
 }
-.input-block {
-    background-color: rgb(247, 205, 205);
+.form {
     display: flex;
     justify-content: center;   
     align-content: center; 
@@ -118,8 +160,16 @@ export default {
         top: 28px;
         background-color: #fff;
         border: 1px solid green;
-        height: 100px;
+        height: 200px;
         width: 200px;
+        li {
+            //margin-bottom: 8px;
+            padding: 8px;
+            cursor: pointer;
+            &:hover {
+                background-color: rgb(217, 228, 217);
+            }
+        }
     }
 }
 </style>

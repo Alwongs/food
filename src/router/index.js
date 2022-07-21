@@ -13,6 +13,16 @@ const routes = [
     component: () => import('@/views/FoodPage.vue')
   },
   {
+    path: '/history-page',
+    name: 'history-page',
+    component: () => import('@/views/HistoryPage.vue')
+  },
+  {
+    path: '/day-page/:date',
+    name: 'day-page',
+    component: () => import('@/views/DayPage.vue')
+  },
+  {
     path: '/create-meal',
     name: 'create-meal',
     component: () => import('@/views/CreateMeal.vue')
